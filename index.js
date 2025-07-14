@@ -8,7 +8,7 @@ app.use(express.json());
 if (process.env.ENABLE_GOOGLE_CHAT === 'true') {
     const googleChatRouter = (await import('./connectors/google-chat.js')).default;
     app.use('/chat', googleChatRouter);
-    console.log('oogle Chat connector activé');
+    console.log('Google Chat connector activé');
 }
 
 if (process.env.ENABLE_DISCORD === 'true') {
