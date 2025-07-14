@@ -11,7 +11,7 @@ const client = new Client({
 });
 
 client.on('ready', () => {
-    console.log(`QuoiFeurBot connecté`);
+    console.log(`FeurBot connecté`);
 });
 
 client.on('messageCreate', async (message) => {
