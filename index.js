@@ -1,31 +1,23 @@
-import { Client, GatewayIntentBits } from 'discord.js';
+import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const client = new Client({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent
-    ]
+const app = express();
+app.use(express.json());
+
+if (process.env.ENABLE_GOOGLE_CHAT === 'true') {
+    const googleChatRouter = (await import('./connectors/google-chat.js')).default;
+    app.use('/chat', googleChatRouter);
+    console.log('oogle Chat connector activé');
+}
+
+if (process.env.ENABLE_DISCORD === 'true') {
+    const { startDiscordBot } = await import('./connectors/discord.js');
+    startDiscordBot();
+    console.log('Discord connector activé');
+}
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 Bot lancé sur le port ${PORT}`);
 });
-
-client.on('ready', () => {
-    console.log(`FeurBot connecté`);
-});
-
-client.on('messageCreate', async (message) => {
-    // Ignore les messages du bot lui-même
-    if (message.author.bot) return;
-
-    const content = message.content.trim().toLowerCase();
-
-    // Détection basique de “quoi” à la fin
-    const endsWithQuoi = /(\w*quoi)[?!.\s]*$/i.test(content);
-
-    if (endsWithQuoi) {
-        await message.reply('feur');
-    }
-});
-
-client.login(process.env.DISCORD_TOKEN);
