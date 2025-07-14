@@ -19,5 +19,5 @@ if (process.env.ENABLE_DISCORD === 'true') {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`🚀 Bot lancé sur le port ${PORT}`);
+    console.log(`Bot lancé sur le port ${PORT}`);
 });
