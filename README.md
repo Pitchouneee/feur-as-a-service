@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/feur-theobabac.gif" alt="Feur Theobabac" />
+</p>
+
 # 🤖 Feur as a Service
 
 > **Un bot Discord inutile, donc absolument indispensable.**  
